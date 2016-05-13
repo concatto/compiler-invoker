@@ -38,6 +38,6 @@ module.exports = ConsoleView =
     else
       @modalPanel.show()
 
-  compileAndRun: =>
+  compileAndRun: ->
     @invoker.compile (output) =>
       @compilerInvokerView.appendText(output)
