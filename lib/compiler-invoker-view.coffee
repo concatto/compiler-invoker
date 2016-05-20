@@ -42,3 +42,6 @@ class CompilerInvokerView
   appendText: (text) ->
     @message.textContent += text
     @message.scrollTop = @message.scrollHeight
+
+  clearText: ->
+    @message.textContent = ''

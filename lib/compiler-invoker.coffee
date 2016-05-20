@@ -11,6 +11,12 @@ module.exports = ConsoleView =
       tooltip: 'Compile and Run'
       iconset: 'ion'
 
+    @toolBar.addButton
+      icon: 'nuclear'
+      callback: 'compiler-invoker:clear-console'
+      tooltip: 'Clear console'
+      iconset: 'ion'
+
   activate: (state) ->
     @compilerInvokerView = new CompilerInvokerView(state.compilerInvokerViewState)
     @invoker = new Invoker()
@@ -20,6 +26,7 @@ module.exports = ConsoleView =
     @subscriptions.add atom.commands.add 'atom-workspace',
       'compiler-invoker:toggle': => @toggle()
       'compiler-invoker:compile-and-run': => @compileAndRun()
+      'compiler-invoker:clear-console': => @clearConsole()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -41,3 +48,6 @@ module.exports = ConsoleView =
   compileAndRun: ->
     @invoker.compile (output) =>
       @compilerInvokerView.appendText(output)
+
+  clearConsole: ->
+    @compilerInvokerView.clearText()
