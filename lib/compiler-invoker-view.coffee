@@ -7,8 +7,7 @@ class CompilerInvokerView
 
     # Create message element
     @message = document.createElement('div')
-    @message.textContent = "Found IT!!\n"
-    @message.classList.add('message')
+    @message.classList.add('message', 'native-key-bindings')
     @element.appendChild(@message)
 
   # Returns an object that can be retrieved when package is activated
