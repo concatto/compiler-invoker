@@ -23,6 +23,7 @@ class Invoker
     compiler.stdout.on("data", outputFunction)
     compiler.stderr.on("data", outputFunction)
     compiler.on "exit", (code) ->
-      exe = spawn(executable)
-      exe.stdout.on("data", outputFunction)
-      exe.stderr.on("data", outputFunction)
+      if (code == 0)
+        exe = spawn(executable)
+        exe.stdout.on("data", outputFunction)
+        exe.stderr.on("data", outputFunction)
