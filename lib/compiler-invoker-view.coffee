@@ -9,7 +9,7 @@ class CompilerInvokerView
 
     @messageControl = document.createElement('div')
     @messageControl.classList.add('message-control')
-    @messageControl.textContent = "Toggle"
+    @messageControl.textContent = "Show"
 
     @messageControl.addEventListener 'click', () =>
       @toggleMessage()
@@ -34,8 +34,10 @@ class CompilerInvokerView
   toggleMessage: ->
     if (@messageShown)
       @message.classList.add('hidden')
+      @messageControl.textContent = "Show"
     else
       @message.classList.remove('hidden')
+      @messageControl.textContent = "Hide"
 
     @messageShown = !@messageShown
 
