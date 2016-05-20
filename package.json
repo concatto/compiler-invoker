@@ -1,7 +1,7 @@
 {
   "name": "compiler-invoker",
   "main": "./lib/compiler-invoker",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A short description of your package",
   "keywords": [],
   "repository": {
