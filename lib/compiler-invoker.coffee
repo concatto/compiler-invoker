@@ -12,21 +12,31 @@ module.exports = ConsoleView =
       iconset: 'ion'
 
     @toolBar.addButton
-      icon: 'nuclear'
+      icon: 'backspace'
       callback: 'compiler-invoker:clear-console'
       tooltip: 'Clear console'
       iconset: 'ion'
 
+    @toolBar.addButton
+      icon: 'nuclear'
+      callback: 'compiler-invoker:kill-process'
+      tooltip: 'Kill process'
+      iconset: 'ion'
+
   activate: (state) ->
     @compilerInvokerView = new CompilerInvokerView(state.compilerInvokerViewState)
-    @invoker = new Invoker()
+    @invoker = new Invoker ((text) => @compilerInvokerView.appendText(text)), \
+                           ((info) => @compilerInvokerView.appendInformation(info))
+
+    @compilerInvokerView.onInput(@invoker.writeToProcess)
     @modalPanel = atom.workspace.addBottomPanel(item: @compilerInvokerView.getElement(), visible: true)
 
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace',
       'compiler-invoker:toggle': => @toggle()
-      'compiler-invoker:compile-and-run': => @compileAndRun()
-      'compiler-invoker:clear-console': => @clearConsole()
+      'compiler-invoker:compile-and-run': => @invoker.compile()
+      'compiler-invoker:clear-console': => @compilerInvokerView.clearText()
+      'compiler-invoker:kill-process': => @invoker.killProcess()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -38,16 +48,7 @@ module.exports = ConsoleView =
     compilerInvokerViewState: @compilerInvokerView.serialize()
 
   toggle: ->
-    console.log 'CompilerInvoker was toggled!'
-
     if @modalPanel.isVisible()
       @modalPanel.hide()
     else
       @modalPanel.show()
-
-  compileAndRun: ->
-    @invoker.compile (output) =>
-      @compilerInvokerView.appendText(output)
-
-  clearConsole: ->
-    @compilerInvokerView.clearText()
