@@ -21,7 +21,7 @@ class Invoker
     directory = @getActiveDirectory()
     files = (file.getPath() for file in @filterFiles(directory, "cpp"));
     executable = directory.getPath() + "/" + directory.getBaseName()
-    args = [files.join(" "), '-o', executable, '-g', '-std=c++11']
+    args = files.concat(['-o', executable, '-g', '-std=c++11'])
 
     compilerProgram = "g++"
     compiler = spawn(compilerProgram, args)
