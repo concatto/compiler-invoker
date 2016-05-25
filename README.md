@@ -1,5 +1,12 @@
-# compiler-invoker package
+# Compiler Invoker package
 
-A short description of your package.
+Support for calling g++. Adds buttons to the [tool-bar](https://atom.io/packages/tool-bar) package.
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+# Commands
+
+* compile-and-run: Compiles and runs the current file.
+* clear-console: Erases the console.
+* kill-process: Terminates the currently running program.
+
+
+Developed at the Laboratory of Applied Intelligence (Laboratório de Inteligência Aplicada) - UNIVALI.
