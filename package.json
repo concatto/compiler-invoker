@@ -2,7 +2,7 @@
   "name": "compiler-invoker",
   "main": "./lib/compiler-invoker",
   "version": "1.0.2",
-  "description": "A short description of your package",
+  "description": "Compiles and runs programs written in C/C++",
   "keywords": [],
   "repository": {
     "type": "git",
