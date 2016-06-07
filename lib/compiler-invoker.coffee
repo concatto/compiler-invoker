@@ -1,5 +1,6 @@
 CompilerInvokerView = require './compiler-invoker-view'
 Invoker = require './invoker'
+Utils = require './utils'
 {CompositeDisposable} = require 'atom'
 
 module.exports = ConsoleView =
@@ -37,6 +38,7 @@ module.exports = ConsoleView =
       'compiler-invoker:compile-and-run': => @invoker.compile()
       'compiler-invoker:clear-console': => @compilerInvokerView.clearText()
       'compiler-invoker:kill-process': => @invoker.killProcess()
+      'compiler-invoker:switch-file': => @switchFile()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -52,3 +54,15 @@ module.exports = ConsoleView =
       @modalPanel.hide()
     else
       @modalPanel.show()
+
+  switchFile: ->
+    matchPredicate = (path) ->
+      if (Utils.getFilename(Utils.getActiveFile(), true) == Utils.getFilename(path, true))
+        curExt = Utils.getExtension(Utils.getActiveFile())
+        ext = Utils.getExtension(path)
+        return (curExt == 'cpp' and (ext == 'h' or ext == 'hpp')) or (ext == 'cpp' and (curExt == 'h' or curExt == 'hpp'))
+
+      return false
+
+    matches = (file.getPath() for file in Utils.getActiveDirectory().getEntriesSync() when matchPredicate(file.getPath()))
+    atom.workspace.open(matches[0])
