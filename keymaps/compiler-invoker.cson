@@ -10,3 +10,4 @@
 'atom-workspace':
   'ctrl-shift-alt-m': 'compiler-invoker:toggle'
   'f4': 'compiler-invoker:switch-file'
+  'f5': 'compiler-invoker:compile-and-run'

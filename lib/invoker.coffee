@@ -7,13 +7,14 @@ class Invoker
   constructor: (@textFunction, @informationFunction) ->
 
   compile: =>
+    atom.workspace.getActiveTextEditor().save();
     @killProcess()
 
     directory = Utils.getActiveDirectory()
     files = (file.getPath() for file in Utils.filterFiles(directory, "cpp"));
     executable = directory.getPath() + "/" + directory.getBaseName()
     args = files.concat(['-o', executable, '-g', '-std=c++11'])
-    
+
     compilerProgram = "g++"
     compiler = spawn(compilerProgram, args)
     compiler.stdout.on("data", (text) => @textFunction(text))
