@@ -11,7 +11,8 @@ class Invoker
     @killProcess()
 
     directory = Utils.getActiveDirectory()
-    files = (file.getPath() for file in Utils.filterFiles(directory, "cpp"));
+    files = (file.getPath() for file in Utils.filterFiles(directory, ["cpp", "c"]));
+
     executable = directory.getPath() + "/" + directory.getBaseName()
     args = files.concat(['-o', executable, '-g', '-std=c++11'])
 

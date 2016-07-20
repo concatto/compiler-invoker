@@ -6,9 +6,16 @@ class Utils
   @getExtension: (path) ->
     return path.substring(path.lastIndexOf('.') + 1)
 
-  @filterFiles: (directory, extension) ->
-    files = (file for file in directory.getEntriesSync() when @getExtension(file.getPath()) == extension)
+  @filterFiles: (directory, extensions) ->
+    files = (file for file in directory.getEntriesSync() when @compareExtensions(@getExtension(file.getPath()), extensions))
     return files
+
+  @compareExtensions: (path, extensions) ->
+    for extension in extensions
+      if path == extension
+        return true
+
+    return false
 
   @getActiveDirectory: ->
     return new File(@getActiveFile()).getParent()
